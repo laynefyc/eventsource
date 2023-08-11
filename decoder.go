@@ -168,7 +168,11 @@ func newLineStreamChannel(r *bufio.Reader) (<-chan string, <-chan error) {
 		for {
 			line, err := r.ReadString('\n')
 			if err != nil {
-				errorCh <- err
+				if len(line) > 0{
+				    errorCh <- line
+				}else{
+				    errorCh <- err
+				}
 				return
 			}
 			linesCh <- line
